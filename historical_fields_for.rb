@@ -1,4 +1,4 @@
-require 'active_record'
+gem 'activerecord', '~> 2.3'
 
 ##
 # Tracks fields historically over time when they get updated
