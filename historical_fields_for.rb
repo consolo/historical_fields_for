@@ -15,7 +15,7 @@ module CoHack
       def historical_fields_for(*attributes)
         
         self.class_eval do
-          has_many :historical_fields, :as => :parent, :dependent => :destroy
+          has_many :historical_fields, :as => :parent, :dependent => :destroy, :order => 'historical_fields.created_at ASC'
         end
         
         attributes.collect(&:to_s).each do |attribute|
