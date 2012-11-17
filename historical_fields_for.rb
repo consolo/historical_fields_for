@@ -15,12 +15,12 @@ module CoHack
       def historical_fields_for(*attributes)
         
         self.class_eval do
-          has_many :historical_fields, :as => :parent, :dependent => :destroy, :order => 'historical_fields.created_at ASC'
+          has_many :historical_fields, :as => :parent, :dependent => :destroy
         end
         
         attributes.collect(&:to_s).each do |attribute|
           self.class_eval do
-            has_many attribute.pluralize, :class_name => 'HistoricalField', :as => :parent, :conditions => [ 'historical_fields.field_name = ?', attribute ]
+            has_many attribute.pluralize, :class_name => 'HistoricalField', :as => :parent, :conditions => [ 'historical_fields.field_name = ?', attribute ], :order => 'historical_fields.created_at ASC'
             
             send :define_method, "#{attribute}=" do |new_value|
               if send(attribute) != new_value
