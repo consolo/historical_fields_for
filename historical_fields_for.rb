@@ -24,7 +24,8 @@ module CoHack
             
             send :define_method, "#{attribute}=" do |new_value|
               if send(attribute) != new_value
-                self.historical_fields.build(field_name: attribute, field_value: new_value)
+                calculated_value = new_value.is_a?(String) ? new_value : new_value.to_json
+                self.historical_fields.build(field_name: attribute, field_value: calculated_value)
               end
               super(new_value)
             end
